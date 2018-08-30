@@ -12,6 +12,9 @@ contract Election {
     // Fetch candidate
     mapping(uint => Candidate) public candidates;
 
+    // Voting accounts
+    mapping(address => bool) public voters;
+
     // Store candidates count
     uint public candidatesCount;
 
@@ -23,5 +26,11 @@ contract Election {
     function addCandidate (string _name) private {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    }
+
+    function vote (uint _candidateId) public {
+        voters[msg.sender] = true;
+
+        candidates[_candidateId].voteCount++;
     }
 }
