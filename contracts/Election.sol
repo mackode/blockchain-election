@@ -18,6 +18,10 @@ contract Election {
     // Store candidates count
     uint public candidatesCount;
 
+    event votedEvent (
+        uint indexed _candidateId
+    );
+
     constructor () public {
         addCandidate("Candidate 1");
         addCandidate("Candidate 2");
@@ -33,5 +37,6 @@ contract Election {
         require(_candidateId > 0 && _candidateId <= candidatesCount, "Invalid candidate");
         voters[msg.sender] = true;
         candidates[_candidateId].voteCount++;
+        votedEvent(_candidateId);
     }
 }
